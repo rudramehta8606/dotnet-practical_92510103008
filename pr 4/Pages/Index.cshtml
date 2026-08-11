@@ -1,0 +1,697 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Navratri Garba & Dandiya Registration 2026";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #18021e 0%, #350638 35%, #5a0c41 70%, #240228 100%);
+            --card-bg: rgba(28, 8, 35, 0.75);
+            --card-border: rgba(255, 215, 0, 0.25);
+            --gold-primary: #ffd700;
+            --gold-secondary: #ffb700;
+            --saffron: #ff6b00;
+            --crimson: #d81b60;
+            --text-main: #fcf8ff;
+            --text-muted: #d0b8d8;
+            --input-bg: rgba(15, 3, 20, 0.65);
+            --input-border: rgba(255, 215, 0, 0.2);
+            --input-focus: #ffd700;
+            --error-color: #ff5252;
+            --success-color: #00e676;
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --shadow-glow: 0 10px 40px rgba(216, 27, 96, 0.25), 0 0 20px rgba(255, 215, 0, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 15px 60px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Decorative background ornaments */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(255, 107, 0, 0.15) 0%, rgba(216, 27, 96, 0.1) 40%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            z-index: 1;
+            position: relative;
+        }
+
+        /* Header / Banner Styling */
+        .hero-banner {
+            text-align: center;
+            margin-bottom: 35px;
+            padding: 20px 10px;
+        }
+
+        .festive-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 18px;
+            background: linear-gradient(90deg, rgba(255,215,0,0.15), rgba(216,27,96,0.25));
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            border-radius: 50px;
+            color: var(--gold-primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #ffe885 50%, #ffab40 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* Card Wrapper */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--saffron), var(--gold-primary), var(--crimson));
+        }
+
+        /* Form Sections */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 28px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed rgba(255, 215, 0, 0.2);
+        }
+
+        .section-header:first-of-type {
+            margin-top: 0;
+        }
+
+        .section-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(216, 27, 96, 0.3));
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-primary);
+            font-size: 0.95rem;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gold-primary);
+            letter-spacing: 0.5px;
+        }
+
+        /* Grid Layout */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px 22px;
+        }
+
+        .field-full {
+            grid-column: span 2;
+        }
+
+        /* Input Controls */
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .field label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .field label i {
+            color: var(--saffron);
+            font-size: 0.85rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .field input, .field select, .field textarea {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+            outline: none;
+        }
+
+        .field select option {
+            background: #24062a;
+            color: #fff;
+        }
+
+        .field textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .field input:focus, .field select:focus, .field textarea:focus {
+            border-color: var(--input-focus);
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.25);
+            background: rgba(22, 4, 30, 0.85);
+        }
+
+        .field input::placeholder, .field textarea::placeholder {
+            color: rgba(208, 184, 216, 0.4);
+        }
+
+        /* Validation Summary & Errors */
+        .validation-summary {
+            background: rgba(216, 27, 96, 0.15);
+            border: 1px solid var(--crimson);
+            border-radius: var(--radius-md);
+            padding: 14px 18px;
+            color: #ff80ab;
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+        }
+
+        .validation-summary ul {
+            margin-left: 20px;
+            margin-top: 6px;
+        }
+
+        .field-error {
+            color: var(--error-color);
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 2px;
+            display: block;
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            grid-column: span 2;
+            margin-top: 15px;
+            background: linear-gradient(135deg, #ff9100 0%, #d81b60 50%, #aa00ff 100%);
+            background-size: 200% auto;
+            color: #fff;
+            border: none;
+            padding: 16px 32px;
+            border-radius: var(--radius-md);
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 8px 25px rgba(216, 27, 96, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover {
+            background-position: right center;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(255, 145, 0, 0.5);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        /* Pass Ticket Summary Styling */
+        .pass-ticket {
+            background: linear-gradient(145deg, rgba(35, 10, 45, 0.9), rgba(18, 4, 25, 0.95));
+            border: 2px solid var(--gold-primary);
+            border-radius: var(--radius-lg);
+            padding: 0;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.25);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .pass-header {
+            background: linear-gradient(90deg, #d81b60, #ff6b00);
+            padding: 24px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .pass-badge {
+            background: #ffd700;
+            color: #210328;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 14px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .pass-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+
+        .pass-subtitle {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .pass-body {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px 30px;
+        }
+
+        .pass-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .pass-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+
+        .pass-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gold-primary);
+        }
+
+        .pass-id-box {
+            grid-column: span 2;
+            background: rgba(255, 215, 0, 0.08);
+            border: 1px dashed var(--gold-primary);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .pass-id-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .pass-id-code {
+            font-family: monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 3px;
+        }
+
+        .pass-footer {
+            padding: 20px 30px;
+            background: rgba(10, 2, 15, 0.8);
+            border-top: 1px solid rgba(255,215,0,0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            background: transparent;
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-action:hover {
+            background: var(--gold-primary);
+            color: #1a0220;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-primary-action {
+            background: linear-gradient(90deg, var(--gold-primary), var(--gold-secondary));
+            color: #1a0220;
+            border: none;
+        }
+
+        .btn-primary-action:hover {
+            background: linear-gradient(90deg, #ffe033, #ffc400);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            z-index: 1;
+        }
+
+        @@keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Breakpoints */
+        @@media (max-width: 650px) {
+            .form-grid, .pass-body {
+                grid-template-columns: 1fr;
+            }
+
+            .field-full, .btn-submit, .pass-id-box {
+                grid-column: span 1;
+            }
+
+            .card {
+                padding: 24px 18px;
+            }
+
+            .hero-title {
+                font-size: 1.9rem;
+            }
+
+            .pass-footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn-action {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Hero Header -->
+        <header class="hero-banner">
+            <div class="festive-badge">
+                <i class="fa-solid fa-om"></i> Shree Navratri Mahotsav 2026 <i class="fa-solid fa-star"></i>
+            </div>
+            <h1 class="hero-title">Garba & Dandiya Registration</h1>
+            <p class="hero-subtitle">Experience the grandest traditional Raas Garba festival! Register now to secure your official event entry pass.</p>
+        </header>
+
+        @if (Model.IsSubmitted)
+        {
+            <!-- Success VIP Pass Card -->
+            <div class="pass-ticket">
+                <div class="pass-header">
+                    <span class="pass-badge"><i class="fa-solid fa-circle-check"></i> Registration Confirmed</span>
+                    <h2 class="pass-title">OFFICIAL EVENT PASS</h2>
+                    <p class="pass-subtitle">Present this pass at the entry gate for venue access</p>
+                </div>
+
+                <div class="pass-body">
+                    <div class="pass-field">
+                        <span class="pass-label">Participant Name</span>
+                        <span class="pass-value">@Model.Registration.Name</span>
+                    </div>
+
+                    <div class="pass-field">
+                        <span class="pass-label">Event Category</span>
+                        <span class="pass-value">@Model.Registration.EventCategory</span>
+                    </div>
+
+                    <div class="pass-field">
+                        <span class="pass-label">City</span>
+                        <span class="pass-value">@Model.Registration.City</span>
+                    </div>
+
+                    <div class="pass-field">
+                        <span class="pass-label">Contact Phone</span>
+                        <span class="pass-value">@Model.Registration.Phone</span>
+                    </div>
+
+                    <div class="pass-field">
+                        <span class="pass-label">Age & Gender</span>
+                        <span class="pass-value">@Model.Registration.Age yrs, @Model.Registration.Gender</span>
+                    </div>
+
+                    <div class="pass-field">
+                        <span class="pass-label">Participants Count</span>
+                        <span class="pass-value">@Model.Registration.ParticipantCount Person(s)</span>
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.Registration.TeamName))
+                    {
+                        <div class="pass-field">
+                            <span class="pass-label">Team Name</span>
+                            <span class="pass-value">@Model.Registration.TeamName</span>
+                        </div>
+                    }
+
+                    <div class="pass-field">
+                        <span class="pass-label">Experience Level</span>
+                        <span class="pass-value">@Model.Registration.ExperienceLevel</span>
+                    </div>
+
+                    <div class="pass-id-box">
+                        <div class="pass-id-label">REGISTRATION PASS CODE</div>
+                        <div class="pass-id-code">#NAV-@Model.Registration.RegistrationId.Substring(0, 8).ToUpper()</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Submitted at: @Model.Registration.SubmittedAt.ToString("f")</div>
+                    </div>
+                </div>
+
+                <div class="pass-footer">
+                    <a href="/" class="btn-action">
+                        <i class="fa-solid fa-user-plus"></i> Register Another
+                    </a>
+                    <button type="button" onclick="window.print()" class="btn-action btn-primary-action">
+                        <i class="fa-solid fa-print"></i> Print / Save Pass
+                    </button>
+                </div>
+            </div>
+        }
+        else
+        {
+            <!-- Registration Form Card -->
+            <div class="card">
+                <form method="post">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div asp-validation-summary="ModelOnly" class="validation-summary">
+                            <strong><i class="fa-solid fa-circle-exclamation"></i> Please fix the errors below:</strong>
+                        </div>
+                    }
+
+                    <!-- Section 1 -->
+                    <div class="section-header">
+                        <div class="section-icon"><i class="fa-solid fa-user"></i></div>
+                        <h2 class="section-title">Personal Details</h2>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="field">
+                            <label asp-for="Registration.Name"><i class="fa-solid fa-signature"></i> Full Name</label>
+                            <input asp-for="Registration.Name" placeholder="e.g. Ramesh Patel" />
+                            <span asp-validation-for="Registration.Name" class="field-error"></span>
+                        </div>
+
+                        <div class="field">
+                            <label asp-for="Registration.Age"><i class="fa-solid fa-cake-candles"></i> Age</label>
+                            <input asp-for="Registration.Age" type="number" min="5" max="100" placeholder="e.g. 22" />
+                            <span asp-validation-for="Registration.Age" class="field-error"></span>
+                        </div>
+
+                        <div class="field">
+                            <label asp-for="Registration.Gender"><i class="fa-solid fa-venus-mars"></i> Gender</label>
+                            <select asp-for="Registration.Gender">
+                                <option value="">Select Gender</option>
+                                <option>Female</option>
+                                <option>Male</option>
+                                <option>Other</option>
+                                <option>Prefer not to say</option>
+                            </select>
+                            <span asp-validation-for="Registration.Gender" class="field-error"></span>
+                        </div>
+
+                        <div class="field">
+                            <label asp-for="Registration.Phone"><i class="fa-solid fa-phone"></i> Phone Number</label>
+                            <input asp-for="Registration.Phone" placeholder="e.g. 9876543210" />
+                            <span asp-validation-for="Registration.Phone" class="field-error"></span>
+                        </div>
+
+                        <div class="field">
+                            <label asp-for="Registration.Email"><i class="fa-solid fa-envelope"></i> Email Address</label>
+                            <input asp-for="Registration.Email" type="email" placeholder="e.g. ramesh@example.com" />
+                            <span asp-validation-for="Registration.Email" class="field-error"></span>
+                        </div>
+
+                        <div class="field">
+                            <label asp-for="Registration.City"><i class="fa-solid fa-location-dot"></i> City</label>
+                            <input asp-for="Registration.City" placeholder="e.g. Ahmedabad, Vadodara" />
+                            <span asp-validation-for="Registration.City" class="field-error"></span>
+                        </div>
+                    </div>
+
+                    <!-- Section 2 -->
+                    <div class="section-header">
+                        <div class="section-icon"><i class="fa-solid fa-music"></i></div>
+                        <h2 class="section-title">Event & Performance Info</h2>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="field">
+                            <label asp-for="Registration.EventCategory"><i class="fa-solid fa-icons"></i> Event Category</label>
+                            <select asp-for="Registration.EventCategory">
+                                <option value="">Select Category</option>
+                                <option>Traditional Garba</option>
+                                <option>Dandiya Raas</option>
+                                <option>Garba + Dandiya (Combo)</option>
+                                <option>Solo Dance Performance</option>
+                            </select>
+                            <span asp-validation-for="Registration.EventCategory" class="field-error"></span>
+                        </div>
+
+                        <div class="field">
+                            <label asp-for="Registration.ParticipantCount"><i class="fa-solid fa-users"></i> No. of Participants</label>
+                            <input asp-for="Registration.ParticipantCount" type="number" min="1" max="50" placeholder="1 for Individual" />
+                            <span asp-validation-for="Registration.ParticipantCount" class="field-error"></span>
+                        </div>
+
+                        <div class="field">
+                            <label asp-for="Registration.ExperienceLevel"><i class="fa-solid fa-ranking-star"></i> Experience Level</label>
+                            <select asp-for="Registration.ExperienceLevel">
+                                <option value="">Select Level</option>
+                                <option>Beginner (Fun & Dancing)</option>
+                                <option>Intermediate (Regular Garba Enthusiast)</option>
+                                <option>Advanced (Competition Level)</option>
+                            </select>
+                            <span asp-validation-for="Registration.ExperienceLevel" class="field-error"></span>
+                        </div>
+
+                        <div class="field">
+                            <label asp-for="Registration.TeamName"><i class="fa-solid fa-people-group"></i> Group / Team Name (Optional)</label>
+                            <input asp-for="Registration.TeamName" placeholder="e.g. Raas Champions" />
+                        </div>
+
+                        <div class="field field-full">
+                            <label asp-for="Registration.SpecialRequests"><i class="fa-solid fa-comment-dots"></i> Special Requests / Note</label>
+                            <textarea asp-for="Registration.SpecialRequests" placeholder="Any dietary preferences, group arrangements, or special notes..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit">
+                            <i class="fa-solid fa-sparkles"></i> Complete Registration & Generate Pass
+                        </button>
+                    </div>
+                </form>
+            </div>
+        }
+
+        <footer>
+            <p>🪔 Jay Adhya Shakti • Navratri Garba Celebration Portal 2026</p>
+        </footer>
+    </div>
+
+</body>
+</html>
+
