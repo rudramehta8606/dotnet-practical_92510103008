@@ -1,0 +1,9 @@
+@model Feedback
+@{ ViewData["Title"] = "Delete feedback"; }
+<div class="detail-page">
+    <a class="back-link" asp-action="Index">← Back to all feedback</a>
+    <section class="delete-card"><span class="delete-icon">!</span><div class="eyebrow">PLEASE CONFIRM</div><h1>Delete this feedback?</h1><p>This will permanently remove the note from <strong>@Model.Name</strong>. This action can’t be undone.</p>
+        <div class="delete-preview"><span class="category-tag tag-@Model.Category.ToLowerInvariant()">@Model.Category</span><p>“@Model.Message”</p></div>
+        <form asp-action="Delete" method="post"><input type="hidden" name="id" value="@Model.Id" /><button class="btn btn-danger-soft" type="submit">Yes, delete feedback</button><a class="btn btn-quiet" asp-action="Details" asp-route-id="@Model.Id">Keep it</a></form>
+    </section>
+</div>

@@ -1,0 +1,46 @@
+@model IReadOnlyList<Feedback>
+@{
+    ViewData["Title"] = "Feedback inbox";
+    var average = Model.Count == 0 ? 0 : Model.Average(item => item.Rating);
+}
+<section class="hero-panel">
+    <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> LISTEN. LEARN. GET BETTER.</div>
+        <h1>Every voice moves<br />us <span>forward.</span></h1>
+        <p>A little feedback goes a long way. See what people are saying and help us make every experience better.</p>
+        <a class="btn btn-ink" asp-action="Create">Share your feedback <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="art-card art-card-back"><span>✦</span><small>YOUR VOICE</small></div>
+        <div class="art-card art-card-front"><div class="art-stars">★★★★★</div><p>“A thoughtful<br />place to be heard.”</p><div class="art-person"><span class="avatar avatar-peach">J</span><span>Jordan L.<small>Community member</small></span></div></div>
+        <div class="art-spark spark-one">✳</div><div class="art-spark spark-two">✦</div>
+    </div>
+</section>
+<section class="stats-row" aria-label="Feedback summary">
+    <div class="stat-item"><span class="stat-icon icon-lilac">✦</span><div><strong>@Model.Count.ToString("00")</strong><span>voices heard</span></div></div>
+    <div class="stat-item"><span class="stat-icon icon-yellow">★</span><div><strong>@average.ToString("0.0")<small> / 5</small></strong><span>average rating</span></div></div>
+    <div class="stat-item"><span class="stat-icon icon-mint">↗</span><div><strong>@Model.Count(item => item.Status == "New").ToString("00")</strong><span>ready to review</span></div></div>
+</section>
+<section class="feedback-section">
+    <div class="section-heading"><div><div class="eyebrow">THE COMMUNITY SAYS</div><h2>Latest feedback <span class="count-pill">@Model.Count</span></h2></div><a class="text-link" asp-action="Create">Add your voice <span>↗</span></a></div>
+    @if (TempData["Success"] is string message) { <div class="alert alert-success custom-alert" role="status">@message</div> }
+    @if (Model.Count == 0)
+    {
+        <div class="empty-state"><span>✳</span><h3>Be the first to share</h3><p>Your perspective can make a real difference.</p><a class="btn btn-ink" asp-action="Create">Write feedback</a></div>
+    }
+    else
+    {
+        <div class="feedback-grid">
+        @foreach (var item in Model)
+        {
+            <article class="feedback-card">
+                <div class="card-top"><span class="category-tag tag-@item.Category.ToLowerInvariant()">@item.Category</span><span class="status-dot status-@item.Status.ToLowerInvariant().Replace(" ", "-")">@item.Status</span></div>
+                <div class="rating-stars" aria-label="Rating: @item.Rating out of 5">@for (var star = 1; star <= 5; star++) { <span class="@(star <= item.Rating ? "star-filled" : "star-empty")">★</span> }</div>
+                <p class="feedback-quote">“@item.Message”</p>
+                <div class="card-bottom"><div class="person"><span class="avatar avatar-@((item.Id % 4) + 1)">@item.Name.Substring(0, 1).ToUpperInvariant()</span><span class="person-name">@item.Name<small>@item.CreatedAt.ToString("MMM d, yyyy")</small></span></div><a class="icon-link" asp-action="Details" asp-route-id="@item.Id" aria-label="View feedback from @item.Name">↗</a></div>
+            </article>
+        }
+        </div>
+    }
+</section>

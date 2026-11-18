@@ -1,0 +1,9 @@
+@model FeedbackInputModel
+@{ ViewData["Title"] = "Share feedback"; }
+<div class="form-page">
+    <a class="back-link" asp-action="Index">← Back to all feedback</a>
+    <div class="form-intro"><div class="eyebrow"><span class="eyebrow-dot"></span> YOUR VOICE MATTERS</div><h1>We’re all ears<span>.</span></h1><p>Tell us what's on your mind. Every note is read by a real person on our team.</p></div>
+    <section class="form-card"><div class="form-card-heading"><span class="form-icon">✳</span><div><h2>Share your thoughts</h2><p>Fields marked with an asterisk are required.</p></div></div><partial name="_FeedbackForm" model="Model" /></section>
+    <p class="privacy-note">🔒 Your details stay private and are only used to follow up on your feedback.</p>
+</div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

@@ -1,0 +1,13 @@
+@model Feedback
+@{ ViewData["Title"] = "Feedback details"; }
+<div class="detail-page">
+    <a class="back-link" asp-action="Index">← Back to all feedback</a>
+    @if (TempData["Success"] is string message) { <div class="alert alert-success custom-alert" role="status">@message</div> }
+    <article class="detail-card">
+        <div class="detail-top"><span class="category-tag tag-@Model.Category.ToLowerInvariant()">@Model.Category</span><span class="status-dot">@Model.Status</span></div>
+        <div class="rating-stars detail-rating" aria-label="Rating: @Model.Rating out of 5">@for (var star = 1; star <= 5; star++) { <span class="@(star <= Model.Rating ? "star-filled" : "star-empty")">★</span> }</div>
+        <blockquote>“@Model.Message”</blockquote>
+        <div class="detail-person"><span class="avatar avatar-@((Model.Id % 4) + 1)">@Model.Name.Substring(0, 1).ToUpperInvariant()</span><div><strong>@Model.Name</strong><span>@Model.Email · @Model.CreatedAt.ToString("MMMM d, yyyy")</span></div></div>
+        <div class="detail-actions"><a class="btn btn-quiet" asp-action="Index">Back to inbox</a><a class="btn btn-outline-ink" asp-action="Edit" asp-route-id="@Model.Id">Edit feedback</a><a class="danger-link" asp-action="Delete" asp-route-id="@Model.Id">Delete</a></div>
+    </article>
+</div>

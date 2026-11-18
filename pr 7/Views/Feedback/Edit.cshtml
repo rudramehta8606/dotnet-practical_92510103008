@@ -1,0 +1,8 @@
+@model FeedbackInputModel
+@{ ViewData["Title"] = "Edit feedback"; ViewData["IsEdit"] = true; }
+<div class="form-page">
+    <a class="back-link" asp-action="Details" asp-route-id="@ViewBag.FeedbackId">← Back to feedback</a>
+    <div class="form-intro"><div class="eyebrow"><span class="eyebrow-dot"></span> MAKE AN UPDATE</div><h1>Refine your note<span>.</span></h1><p>Update the details below and save your changes.</p></div>
+    <section class="form-card"><div class="form-card-heading"><span class="form-icon">✳</span><div><h2>Edit your feedback</h2><p>Fields marked with an asterisk are required.</p></div></div><partial name="_FeedbackForm" model="Model" /></section>
+</div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

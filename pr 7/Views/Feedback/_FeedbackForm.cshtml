@@ -1,0 +1,59 @@
+@model FeedbackInputModel
+@{
+    var isEdit = ViewData["IsEdit"] as bool? == true;
+}
+@using (Html.BeginForm(isEdit ? "Edit" : "Create", "Feedback", FormMethod.Post, new { @class = "feedback-form", novalidate = "novalidate" }))
+{
+    @Html.AntiForgeryToken()
+    if (isEdit) { <input type="hidden" name="id" value="@ViewBag.FeedbackId" /> }
+    @Html.ValidationSummary(false, "Please check the fields below.", new { @class = "validation-summary" })
+    <div class="form-row">
+        <div class="form-field">
+            @Html.LabelFor(model => model.Name, new { @class = "form-label" })
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "e.g. Alex Morgan", autocomplete = "name" })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "field-validation" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(model => model.Email, new { @class = "form-label" })
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "alex@example.com", type = "email", autocomplete = "email" })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "field-validation" })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-field">
+            @Html.LabelFor(model => model.Category, new { @class = "form-label" })
+            @Html.DropDownListFor(model => model.Category, (IEnumerable<SelectListItem>)ViewBag.Categories, "Choose a topic", new { @class = "form-select" })
+            @Html.ValidationMessageFor(model => model.Category, "", new { @class = "field-validation" })
+        </div>
+        <fieldset class="form-field rating-field">
+            <legend class="form-label">@Html.DisplayNameFor(model => model.Rating)</legend>
+            <div class="rating-options">
+                @for (var rating = 5; rating >= 1; rating--)
+                {
+                    var id = $"rating-{rating}";
+                    @Html.RadioButtonFor(model => model.Rating, rating, new { id, @class = "rating-input" })
+                    <label for="@id" aria-label="@rating out of 5 stars">★<span>@rating</span></label>
+                }
+            </div>
+            @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "field-validation" })
+        </fieldset>
+    </div>
+    <div class="form-field">
+        @Html.LabelFor(model => model.Message, new { @class = "form-label" })
+        @Html.TextAreaFor(model => model.Message, 5, 50, new { @class = "form-control message-box", placeholder = "Tell us what went well, what could be better, or what you'd love to see next...", maxlength = "1200" })
+        <div class="field-foot"><span>Be honest, be kind. Your feedback helps us grow.</span><span><b id="message-count">0</b> / 1200</span></div>
+        @Html.ValidationMessageFor(model => model.Message, "", new { @class = "field-validation" })
+    </div>
+    <div class="form-actions"><a class="btn btn-quiet" asp-action="Index">Cancel</a><button class="btn btn-ink" type="submit">@(isEdit ? "Save changes" : "Send feedback") <span aria-hidden="true">↗</span></button></div>
+}
+<script>
+    (() => {
+        const message = document.getElementById('Message');
+        const count = document.getElementById('message-count');
+        if (message && count) {
+            const update = () => count.textContent = message.value.length;
+            message.addEventListener('input', update);
+            update();
+        }
+    })();
+</script>
