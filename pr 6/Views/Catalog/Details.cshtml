@@ -1,0 +1,8 @@
+@model ProductCatalog.Models.Product
+@{
+    ViewData["Title"] = Model.Name;
+}
+<section class="detail-page">
+    <a class="back-link" asp-action="Index">← Back to collection</a>
+    <div class="detail-layout"><div class="detail-image"><img src="@Model.ImageUrl" alt="@Model.Name" /></div><div class="detail-copy"><p class="eyebrow">@Model.Category</p><h1>@Model.Name</h1><p class="detail-price">$@Model.Price.ToString("0")</p><p class="detail-description">@Model.Description</p><button class="add-button" type="button">Add to bag <span>＋</span></button><dl class="product-facts"><div><dt>Materials</dt><dd>Thoughtfully sourced components</dd></div><div><dt>Dispatch</dt><dd>Ships within 2–3 working days</dd></div><div><dt>Returns</dt><dd>30 days, no questions asked</dd></div></dl></div></div>
+</section>

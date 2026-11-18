@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Field & Form</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" asp-controller="Catalog" asp-action="Index"><span class="brand-mark">F</span> Field <em>&</em> Form</a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a asp-controller="Catalog" asp-action="Index">Catalog</a>
+            <a href="#about">Our approach</a>
+            <a class="bag-link" href="#newsletter">Bag <span>0</span></a>
+        </nav>
+    </header>
+    <main role="main">
+            @RenderBody()
+    </main>
+    <footer class="site-footer" id="about">
+        <p><span class="brand-mark">F</span> Field & Form</p>
+        <p>Objects for a considered everyday.</p>
+    </footer>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

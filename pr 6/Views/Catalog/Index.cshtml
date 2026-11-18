@@ -1,0 +1,18 @@
+@model ProductCatalog.Models.ProductCatalogViewModel
+@{
+    ViewData["Title"] = "Catalog";
+}
+
+<section class="catalog-hero">
+    <div><p class="eyebrow">The considered collection · 2026</p><h1>Useful things,<br /><i>beautifully made.</i></h1></div>
+    <p class="hero-note">A small edit of enduring objects for work, rest, and the rituals in between.</p>
+</section>
+<section class="catalog-toolbar" aria-label="Catalog filters">
+    <form asp-controller="Catalog" asp-action="Index" method="get" class="search-form"><label for="search">Search the collection</label><div class="search-field"><input id="search" name="search" value="@Model.Search" placeholder="Try “lamp” or “canvas”" /><button type="submit" aria-label="Search">↗</button></div></form>
+    <div class="category-list"><a class="@(string.IsNullOrEmpty(Model.Category) ? "active" : "")" asp-route-search="@Model.Search">All objects</a>@foreach (var category in Model.Categories) { <a class="@(string.Equals(Model.Category, category, StringComparison.OrdinalIgnoreCase) ? "active" : "")" asp-route-category="@category" asp-route-search="@Model.Search">@category</a> }</div>
+</section>
+<section class="catalog-grid">
+    @if (Model.Products.Count == 0) { <div class="empty-state"><h2>Nothing found.</h2><p>Try a broader search or browse all objects.</p><a asp-action="Index">Reset filters</a></div> }
+    else { @foreach (var product in Model.Products) { <a class="product-card" asp-controller="Catalog" asp-action="Details" asp-route-id="@product.Id"><div class="product-image"><img src="@product.ImageUrl" alt="@product.Name" loading="lazy" />@if (product.IsFeatured) { <span class="product-badge">Editor’s pick</span> }</div><div class="product-meta"><div><p class="product-category">@product.Category</p><h2>@product.Name</h2></div><strong>$@product.Price.ToString("0")</strong></div></a> } }
+</section>
+<section class="catalog-footer" id="newsletter"><span>@Model.Products.Count of @Model.ProductCount objects</span><span>Free shipping on orders over $100 <i>✦</i></span></section>
